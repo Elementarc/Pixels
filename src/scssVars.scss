@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "Alatsi";
+    src: url("http://localhost:4000/fonts/Alatsi-Regular.ttf");
+}
+//Colors
+$color_dark_blue: #030C18;
+$color_bright_blue: #111F35;
+$color_dark_blue_1: #081427;
+
+$color_main: #F7C35E;
+$color_main_bright: #FFE0A3;
+
+$color_white: #ffffff;
+$color_dark_grey: #808080;
+$color_grey: #C4C4C4;
+$color_bright_grey: #D3D3D3;
+
+$color_error: #F75E5E;
+//Fontsizes
+$font_24_size: 24px;
+$font_18_size: 18px;
+$font_16_size: 16px;
+$font_14_size: 14px;
+$font_12_size: 12px;
+
+//fontFamily
+$font_alatsi: "Alatsi";
+
+//Shadow
+$shadow_25: rgba(0, 0, 0, 0.25);

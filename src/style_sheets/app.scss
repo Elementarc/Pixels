@@ -1,0 +1,42 @@
+@import "../scssVars.scss";
+body {
+    overflow-y: overlay;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar{
+        width: 10px;
+        background-color: $color_dark_blue;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: $color_bright_blue;
+        &:hover{
+            background-color: $color_dark_blue_1;
+        }
+    }
+}
+
+
+.app_container{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    background-color: $color_dark_blue;
+    margin: 0 auto;
+    max-width: 2560px;
+    height: auto;
+    .app_content_container{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+    }
+
+}
+
+@media (max-width: 1024px) {
+    .app_container{
+        grid-template-columns: unset;
+        grid-template-rows: auto 1fr;
+    }
+}
