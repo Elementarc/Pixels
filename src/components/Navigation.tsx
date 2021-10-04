@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {ReactElement, useContext, useEffect, useState} from "react"
 import {motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useLocation, useHistory } from 'react-router-dom';
@@ -11,10 +12,9 @@ import PacksIcon from "../assets/icons/PacksIcon.svg"
 import SearchIcon from "../assets/icons/SearchIcon.svg"
 import SignInIcon from "../assets/icons/SignInIcon.svg"
 //Scss
-import "./style_sheets/nav.scss"
+import "./style_sheets/navigation.scss"
 //Context
 import { isDesktopContext } from "../App";
-/*eslint-disable */
 export const NavStateContext: any = React.createContext(null)
 
 export default function Navigation(): ReactElement {
@@ -39,16 +39,21 @@ export default function Navigation(): ReactElement {
 //Navigation Component for Desktop
 function Navigation_desktop(): ReactElement {
     const navContext: NavContext = useContext(NavStateContext)
+    const setNavState = navContext.setNavState
+    const navState = navContext.navState
+
     const navContainerAnimation = useAnimation()
     
+      
     //Toggle Animation for navigation When NavState changes For mobile & Desktop
     useEffect(() => {
-        const getNavScrollContainer = document.getElementById("nav_content") as HTMLDivElement
+        const NavContent = document.getElementById("nav_content") as HTMLDivElement
         //Animations For Navigation(DESKTOP)
+        
         function animateNavDesktop(navState: boolean): void{
-            getNavScrollContainer.style.overflowX = "hidden"
-            getNavScrollContainer.style.overflowY = "scroll"
-            getNavScrollContainer.scrollTop = 0
+            NavContent.style.overflowX = "hidden"
+            NavContent.style.overflowY = "scroll"
+            NavContent.scrollTop = 0
             
             document.body.style.overflow = "unset"
             //Scrolling To Top Of Navigation When Switching to between Desktop & Mobile Version
@@ -67,17 +72,18 @@ function Navigation_desktop(): ReactElement {
             }
         }
 
-        animateNavDesktop(navContext.navState)
+        animateNavDesktop(navState)
         
-    }, [navContext.navState, navContainerAnimation]);
+    }, [navState, navContainerAnimation]);
 
     //Setting NavHeight to device Window inner heigth
     useEffect(() => {
-        navContext.setNavState(false)
-        const getNavScrollContainer = document.getElementById("nav_content") as HTMLDivElement
+        setNavState(false)
+        const NavContent = document.getElementById("nav_content") as HTMLDivElement
 
         function resize() {
-            getNavScrollContainer.style.height = `${window.innerHeight}px`
+            
+            NavContent.style.height = `${window.innerHeight}px`
         }
         resize()
 
@@ -87,7 +93,7 @@ function Navigation_desktop(): ReactElement {
             window.removeEventListener("resize", resize)
         })
 
-    }, [navContext.setNavState])
+    }, [setNavState])
 
     return (
         <motion.div animate={navContainerAnimation} className="nav_container_desktop" id="nav_container">
@@ -136,6 +142,8 @@ function Navigation_desktop(): ReactElement {
 //Navigation Component for Mobile
 function Navigation_mobile(): ReactElement {
     const navContext: NavContext = useContext(NavStateContext)
+    const setNavState = navContext.setNavState
+    const navState = navContext.navState
     const navContainerAnimation = useAnimation()
 
     //Toggle Animation for navigation When NavState changes For mobile
@@ -170,13 +178,13 @@ function Navigation_mobile(): ReactElement {
     
             }
         }
-        animateNavMobile(navContext.navState)
+        animateNavMobile(navState)
 
-    }, [navContext.navState, navContainerAnimation]);
+    }, [navState, navContainerAnimation]);
 
     //Setting NavHeight to device Window inner heigth
     useEffect(() => {
-        navContext.setNavState(false)
+        setNavState(false)
         const getNavScrollContainer = document.getElementById("nav_content") as HTMLDivElement
 
         function resize() {
@@ -190,7 +198,7 @@ function Navigation_mobile(): ReactElement {
             window.removeEventListener("resize", resize)
         })
 
-    }, [navContext.setNavState])
+    }, [setNavState])
 
     return (
         <motion.div animate={navContainerAnimation} className="nav_container_mobile" id="nav_container">

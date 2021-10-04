@@ -1,0 +1,41 @@
+@import "../../scssVars.scss";
+
+.footer_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #111F35;
+    background: linear-gradient(180deg, $color_bright_blue 0%, $color_dark_blue_1);
+    width: 100%;
+    h1{
+        font-size: $font_38_size;
+        font-family: $font_alatsi;
+        color: $color_bright_grey;
+        font-weight: 500;
+        margin-top: 3.5rem;
+    }
+    
+    .socials_container{
+        display: flex;
+        margin: 5rem 0rem 5rem 0rem;
+        a{
+            margin: 0 1rem;
+        }
+    }
+
+    .legal_container{
+        margin-bottom: 1.4rem;
+        a{
+            font-size: $font_14_size;
+            font-family: $font_alatsi;
+            color: $color_dark_grey;
+            text-decoration: none;
+            margin: 0rem 1.2rem;
+            font-weight: 500;
+            &:hover{
+                
+                color: $color_bright_grey
+            }
+        }
+    }
+}

@@ -1,8 +1,11 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import { Switch , Route, useLocation} from 'react-router-dom';
 import {  AnimatePresence } from 'framer-motion';
+
 //React Components
-import Navigation from "./components/Nav"
+import Navigation from "./components/Navigation"
+import Home from "./page_components/Home"
+import News from "./page_components/News"
 //StyleSheets
 import "./style_sheets/app.scss"
 
@@ -46,11 +49,11 @@ export default function App_main(): ReactElement {
                         <Switch location={location} key={location.pathname}>
                             
                             <Route strict exact path="/">
-                                
+                                <Home/>
                             </Route>
 
                             <Route strict path="/news">
-                                
+                                <News/>
                             </Route>
 
                         </Switch>
