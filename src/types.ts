@@ -6,5 +6,9 @@ export interface NavItem{
     label: string
     icon: React.FC<React.SVGProps<SVGSVGElement>>
     link: string
-    navState: boolean
+}
+
+export interface NavContext {
+    navState: boolean,
+    setNavState: React.Dispatch<React.SetStateAction<boolean>>
 }

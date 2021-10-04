@@ -2,7 +2,6 @@
 body {
     overflow-y: overlay;
     overflow-x: hidden;
-
     &::-webkit-scrollbar{
         width: 10px;
         background-color: $color_dark_blue;

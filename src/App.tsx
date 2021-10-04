@@ -1,16 +1,17 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import { Switch , Route, useLocation} from 'react-router-dom';
 import {  AnimatePresence } from 'framer-motion';
-
 //React Components
-import Nav from "./components/Nav"
+import Navigation from "./components/Nav"
 //StyleSheets
 import "./style_sheets/app.scss"
+
+
 //Creating Context
 export const isDesktopContext = React.createContext(true)
 
 //App Component
-const App_main = (): ReactElement => {
+export default function App_main(): ReactElement {
     const location = useLocation()
     //Setting IsDesktop to tell other Components if App is mobileDevice or DesktopDevice
     const [isDesktop, setIsDesktop] = useState(() => {
@@ -38,7 +39,7 @@ const App_main = (): ReactElement => {
     return (
         <isDesktopContext.Provider value={isDesktop}>
             <div className="app_container">
-                <Nav/>
+                <Navigation/>
 
                 <div className="app_content_container" id="app_content_container">
                     <AnimatePresence exitBeforeEnter>
@@ -60,7 +61,3 @@ const App_main = (): ReactElement => {
         </isDesktopContext.Provider>
     );
 }
-
-
-
-export default App_main;
