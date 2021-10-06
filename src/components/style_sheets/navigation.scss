@@ -11,13 +11,13 @@
         position: sticky;
         display: flex;
         flex-direction: column;
-        top: 0;
+        top: 0px;
         overflow-x: hidden;
         overflow-y: scroll;
         scrollbar-width: none;
         overflow: scroll;
         width: 100%;
-        background: linear-gradient(180deg, $color_bright_blue 0%, $color_dark_blue_1 100%);
+        background: $color_gradiant_main;
         box-shadow: 3px 0px 6px 0px $shadow_25;
         &::-webkit-scrollbar{
             display: none;

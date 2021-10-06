@@ -118,7 +118,7 @@ function Navigation_desktop(): ReactElement {
                 <div className="nav_items_container">
                     <div onClick={() => {navContext.setNavState(false)}}>
                         <ul>
-                            <Nav_item label="Home" icon={HomeIcon} link="/"/>
+                            <Nav_item label="Home" icon={HomeIcon} link="/home"/>
                             <Nav_item label="News" icon={NewsIcon} link="/news" />
                             <Nav_item label="Packs" icon={PacksIcon} link="/packs"/>
                             <Nav_item label="Search" icon={SearchIcon} link="/search"/>
@@ -271,28 +271,34 @@ function Nav_item(props: NavItem) {
     useEffect(() => {
         const getNavItems = document.getElementsByClassName("nav_li_item") as HTMLCollection
         
-        for(let i = 0; i < getNavItems.length; ++i){
-            if(getNavItems[i].id === location.pathname){
-                getNavItems[i].classList.add("nav_li_item_target")
-                getNavItems[i].classList.remove("nav_li_item_none_target")
+        function setNavTargets() {
+            for(let i = 0; i < getNavItems.length; ++i){
                 
-            } else {
-                getNavItems[i].classList.remove("nav_li_item_target")
-                getNavItems[i].classList.add("nav_li_item_none_target")
+                if(location.pathname.toLowerCase().includes(`${getNavItems[i].id}`) === true){
+                    getNavItems[i].classList.add("nav_li_item_target")
+                    getNavItems[i].classList.remove("nav_li_item_none_target")
+                    
+                } else {
+                    getNavItems[i].classList.remove("nav_li_item_target")
+                    getNavItems[i].classList.add("nav_li_item_none_target")
+                }
+                
             }
         }
+        
+        setNavTargets()
         
     }, [location.pathname]);
 
     //OnClick for NavItem to change URL
     function pushHistory() {
-        if(location.pathname !== props.link){
+        if(location.pathname.toLowerCase() !== props.link.toLowerCase()){
             history.push(`${props.link}`)
         }
     }
 
     return(
-        <motion.li className="nav_li_item" id={`${props.link}`} onClick={pushHistory}>
+        <motion.li className="nav_li_item" id={`${props.link.toLowerCase()}`} onClick={pushHistory}>
             <div className="nav_item">
                 <Icon className="icon_svg"/>
                 <motion.p animate={navItemLabelAnimation} >{props.label}</motion.p>

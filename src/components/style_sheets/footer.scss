@@ -5,26 +5,32 @@
     flex-direction: column;
     align-items: center;
     background: #111F35;
-    background: linear-gradient(180deg, $color_bright_blue 0%, $color_dark_blue_1);
+    background: $color_gradiant_main;
     width: 100%;
     h1{
         font-size: $font_38_size;
         font-family: $font_alatsi;
         color: $color_bright_grey;
         font-weight: 500;
-        margin-top: 3.5rem;
+        margin-top: 3rem;
     }
     
     .socials_container{
         display: flex;
         margin: 5rem 0rem 5rem 0rem;
         a{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 32px;
+            width: 32px;
             margin: 0 1rem;
         }
     }
 
+    
     .legal_container{
-        margin-bottom: 1.4rem;
+        margin-bottom: 0rem;
         a{
             font-size: $font_14_size;
             font-family: $font_alatsi;
@@ -37,5 +43,15 @@
                 color: $color_bright_grey
             }
         }
+    }
+
+    p{
+        color: $color_bright_grey;
+        opacity: 0.3;
+        font-weight: 500;
+        margin: 2rem 0 1.4rem;
+        font-size: $font_14_size;
+        font-family: $font_alata;
+        text-align: center;
     }
 }

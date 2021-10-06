@@ -20,6 +20,11 @@ $color_dark_grey: #808080;
 $color_grey: #C4C4C4;
 $color_bright_grey: #D3D3D3;
 
+
+$color_gradiant_main: linear-gradient(180deg, $color_bright_blue 0%, $color_dark_blue_1 100%);
+$color_gradiant_white_line_3: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+
+
 $color_error: #F75E5E;
 //Fontsizes
 $font_48_size: 3rem;
