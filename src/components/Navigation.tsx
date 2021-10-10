@@ -1,8 +1,8 @@
-/* eslint-disable */
-import React, {ReactElement, useContext, useEffect, useState} from "react"
+/*eslint-disable */
+import React, {ReactElement, useContext, useEffect} from "react"
 import {motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useLocation, useHistory } from 'react-router-dom';
-import {NavItem, NavContext} from "../types"
+import {NavItem} from "../types"
 //SVG Components (ICONS)
 import NavIcon from "../assets/icons/NavIcon.svg"
 import CloseIcon from "../assets/icons/CloseIcon.svg"
@@ -14,48 +14,43 @@ import SignInIcon from "../assets/icons/SignInIcon.svg"
 //Scss
 import "./style_sheets/navigation.scss"
 //Context
-import { isDesktopContext } from "../App";
-export const NavStateContext: any = React.createContext(null)
+import { appContext } from "../App";
+import {AppContext} from "../types"
+
 
 export default function Navigation(): ReactElement {
-    const [NavState, setNavState] = useState(false);
-    const isDesktop = useContext(isDesktopContext)
-    const navContext: NavContext = {
-        navState: NavState,
-        setNavState: setNavState,
-    }
+    const appVars: AppContext = useContext(appContext)
+    const isDesktop = appVars.isDesktop
 
     return(
-        <NavStateContext.Provider value={navContext}>
+        <>
             {isDesktop === true &&
                 <Navigation_desktop key="Navigation_Desktop"/>
             }
             {isDesktop === false &&
                <Navigation_mobile key="Navigation_Mobile"/>
             }
-        </NavStateContext.Provider>
+        </>
     )
 }
+
 //Navigation Component for Desktop
 function Navigation_desktop(): ReactElement {
-    const navContext: NavContext = useContext(NavStateContext)
-    const setNavState = navContext.setNavState
-    const navState = navContext.navState
+    const App: AppContext = useContext(appContext)
+    const nav = App.nav
 
     const navContainerAnimation = useAnimation()
-    
-      
     //Toggle Animation for navigation When NavState changes For mobile & Desktop
     useEffect(() => {
         const NavContent = document.getElementById("nav_content") as HTMLDivElement
         //Animations For Navigation(DESKTOP)
-        
         function animateNavDesktop(navState: boolean): void{
             NavContent.style.overflowX = "hidden"
             NavContent.style.overflowY = "scroll"
             NavContent.scrollTop = 0
             
-            document.body.style.overflow = "unset"
+            const getContentBlur = document.getElementById("app_content_blur") as HTMLDivElement
+            
             //Scrolling To Top Of Navigation When Switching to between Desktop & Mobile Version
             if(navState === false) {
                 navContainerAnimation.start({
@@ -63,22 +58,28 @@ function Navigation_desktop(): ReactElement {
                     height: ``,
                     transition: {duration: 0.25},
                 })
+                document.body.style.overflow = "unset"
+                getContentBlur.style.pointerEvents = "none"
+                getContentBlur.style.opacity = "0"
             } else {
                 navContainerAnimation.start({
                     width: "380px",
                     height: ``,
                     transition: {duration: 0.25},
                 })
+                document.body.style.overflow = "hidden"
+                getContentBlur.style.pointerEvents = "all"
+                getContentBlur.style.opacity = "0.8"
             }
         }
 
-        animateNavDesktop(navState)
+        animateNavDesktop(nav.navState)
         
-    }, [navState, navContainerAnimation]);
+    }, [nav.navState, navContainerAnimation]);
 
     //Setting NavHeight to device Window inner heigth
     useEffect(() => {
-        setNavState(false)
+        nav.setNavState(false)
         const NavContent = document.getElementById("nav_content") as HTMLDivElement
 
         function resize() {
@@ -93,7 +94,7 @@ function Navigation_desktop(): ReactElement {
             window.removeEventListener("resize", resize)
         })
 
-    }, [setNavState])
+    }, [nav.setNavState])
 
     return (
         <motion.div animate={navContainerAnimation} className="nav_container_desktop" id="nav_container">
@@ -102,21 +103,21 @@ function Navigation_desktop(): ReactElement {
 
                 <motion.div className="nav_button_container" id="nav_button_container">
                     <AnimatePresence exitBeforeEnter>
-                        {navContext.navState === true &&
+                        {nav.navState === true &&
                             <motion.div key="menu" initial={{scale: 0.9}} animate={{scale: 1, transition: {duration: 0.18, type: "spring"}}} exit={{scale: 0, transition: {duration: 0.1}}}>
-                                <CloseIcon onClick={() => navContext.setNavState(!navContext.navState)} className="nav_svg"/>
+                                <CloseIcon onClick={() => nav.setNavState(!nav.navState)} className="nav_svg"/>
                             </motion.div>
                         } 
-                        {navContext.navState === false &&
+                        {nav.navState === false &&
                             <motion.div key="close" initial={{scale: 0.9}} animate={{scale: 1, transition: {duration: 0.18, type: "spring"}}} exit={{scale: 0, transition: {duration: 0.1}}}>
-                                <NavIcon onClick={() => navContext.setNavState(!navContext.navState)} className="nav_svg"/>
+                                <NavIcon onClick={() => nav.setNavState(!nav.navState)} className="nav_svg"/>
                             </motion.div>
                         }
                     </AnimatePresence>
                 </motion.div>
 
                 <div className="nav_items_container">
-                    <div onClick={() => {navContext.setNavState(false)}}>
+                    <div onClick={() => {nav.setNavState(false)}}>
                         <ul>
                             <Nav_item label="Home" icon={HomeIcon} link="/home"/>
                             <Nav_item label="News" icon={NewsIcon} link="/news" />
@@ -126,7 +127,7 @@ function Navigation_desktop(): ReactElement {
                     </div>
 
                     <div className="nav_sign_in" id="nav_button_container">
-                        <div onClick={() => {navContext.setNavState(false)}}>
+                        <div onClick={() => {nav.setNavState(false)}}>
                             <ul>
                                 <Nav_item label="Sign In" icon={SignInIcon} link="/login"/>
                             </ul>
@@ -141,11 +142,11 @@ function Navigation_desktop(): ReactElement {
 }
 //Navigation Component for Mobile
 function Navigation_mobile(): ReactElement {
-    const navContext: NavContext = useContext(NavStateContext)
-    const setNavState = navContext.setNavState
-    const navState = navContext.navState
-    const navContainerAnimation = useAnimation()
+    //App
+    const App: AppContext = useContext(appContext)
+    const nav = App.nav
 
+    const navContainerAnimation = useAnimation()
     //Toggle Animation for navigation When NavState changes For mobile
     useEffect(() => {
         const getNavScrollContainer = document.getElementById("nav_content") as HTMLDivElement
@@ -180,11 +181,11 @@ function Navigation_mobile(): ReactElement {
         }
         animateNavMobile(navState)
 
-    }, [navState, navContainerAnimation]);
+    }, [nav.navState, navContainerAnimation]);
 
     //Setting NavHeight to device Window inner heigth
     useEffect(() => {
-        setNavState(false)
+        nav.setNavState(false)
         const getNavScrollContainer = document.getElementById("nav_content") as HTMLDivElement
 
         function resize() {
@@ -198,7 +199,7 @@ function Navigation_mobile(): ReactElement {
             window.removeEventListener("resize", resize)
         })
 
-    }, [setNavState])
+    }, [nav.setNavState])
 
     return (
         <motion.div animate={navContainerAnimation} className="nav_container_mobile" id="nav_container">
@@ -207,23 +208,23 @@ function Navigation_mobile(): ReactElement {
 
                 <motion.div className="nav_button_container" id="nav_button_container">
                     <AnimatePresence exitBeforeEnter>
-                        {navContext.navState === true &&
+                        {nav.navState === true &&
                             <motion.div key="menu" initial={{scale: 0.9}} animate={{scale: 1, transition: {duration: 0.18, type: "spring"}}} exit={{scale: 0, transition: {duration: 0.1}}}>
-                                <CloseIcon onClick={() => navContext.setNavState(!navContext.navState)} className="nav_svg"/>
+                                <CloseIcon onClick={() => nav.setNavState(!nav.navState)} className="nav_svg"/>
                             </motion.div>
                         } 
-                        {navContext.navState === false &&
+                        {nav.navState === false &&
                             <motion.div key="close" initial={{scale: 0.9}} animate={{scale: 1, transition: {duration: 0.18, type: "spring"}}} exit={{scale: 0, transition: {duration: 0.1}}}>
-                                <NavIcon onClick={() => navContext.setNavState(!navContext.navState)} className="nav_svg"/>
+                                <NavIcon onClick={() => nav.setNavState(!nav.navState)} className="nav_svg"/>
                             </motion.div>
                         }
                     </AnimatePresence>
                 </motion.div>
 
                 <motion.div className="nav_items_container">
-                    <div onClick={() => {navContext.setNavState(false)}}>
+                    <div onClick={() => {nav.setNavState(false)}}>
                         <ul>
-                            <Nav_item label="Home" icon={HomeIcon} link="/"/>
+                            <Nav_item label="Home" icon={HomeIcon} link="/home"/>
                             <Nav_item label="News" icon={NewsIcon} link="/news"/>
                             <Nav_item label="Packs" icon={PacksIcon} link="/packs"/>
                             <Nav_item label="Search" icon={SearchIcon} link="/search"/>
@@ -231,7 +232,7 @@ function Navigation_mobile(): ReactElement {
                     </div>
 
                     <div className="nav_sign_in" id="nav_button_container">
-                        <div onClick={() => {navContext.setNavState(false)}}>
+                        <div onClick={() => {nav.setNavState(false)}}>
                             <Nav_item label="Sign In" icon={SignInIcon} link="/login"/>
                         </div>
                     </div>
@@ -246,7 +247,9 @@ function Navigation_mobile(): ReactElement {
 }
 //NavItem Component
 function Nav_item(props: NavItem) {
-    const navContext: NavContext = useContext(NavStateContext)
+    const App: AppContext = useContext(appContext)
+    const nav = App.nav
+
     const location = useLocation()
     const history = useHistory()
     const Icon = props.icon
@@ -254,7 +257,7 @@ function Nav_item(props: NavItem) {
     const navItemLabelAnimation = useAnimation()
     //Showing Labels of navItems when toggling navState
     useEffect(() => {
-        if(navContext.navState === true) {
+        if(nav.navState === true) {
             navItemLabelAnimation.start({
                 transition: {duration: 0.2},
                 opacity: 1,
@@ -265,7 +268,7 @@ function Nav_item(props: NavItem) {
                 opacity: 0,
             })
         }
-    }, [navContext.navState, navItemLabelAnimation]);
+    }, [nav.navState, navItemLabelAnimation]);
 
     //Adding removing classes/styles to target Nav_item or none target Nav_item
     useEffect(() => {
