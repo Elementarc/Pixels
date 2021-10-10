@@ -138,8 +138,20 @@
     .news_container {
         .news_header_container{
             .header_content_container{
+                padding-top: 8.5rem;
+                h2{
+                    font-size: $font_16_size;
+                }
+                h1 {
+                    font-size: $font_32_size;
+                }
                 p{
-                    width: 90%;
+                    width: 100%;
+                    padding: 0 1rem;
+                    font-size: $font_16_size;
+                }
+                span{
+                    margin-top: 8.5rem;
                 }
             }
         }
@@ -147,6 +159,24 @@
             margin: 8rem 0rem;
             row-gap: 2rem;
             grid-template-columns: 1fr;
+            .patch_container{
+                .patch_preview{
+                    height: 230px;
+                }
+                .patch_information{
+                    h2{
+                        font-size: $font_16_size;
+                    }
+                    h1{
+                        font-size: $font_32_size;
+                        margin-top: unset;
+                    }
+                    p{
+                        font-size: $font_14_size;
+                    }
+                    
+                }
+            }
         }
     }
 }

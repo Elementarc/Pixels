@@ -55,3 +55,43 @@
         text-align: center;
     }
 }
+
+
+@media (max-width: 1024px) {
+    .footer_container{
+        h1{
+            font-size: $font_32_size;
+        }
+
+        .socials_container{
+            a{
+                height: 28px;
+                width: 28px;
+            }
+        }
+        .legal_container{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            a{
+                font-size: $font_12_size;
+                font-family: $font_alatsi;
+                color: $color_dark_grey;
+                text-decoration: none;
+                margin: 0rem 5%;
+                
+                font-weight: 500;
+                &:hover{
+                    
+                    color: $color_bright_grey
+                }
+            }
+        }
+    
+        p{
+            margin: 2rem 0 1.4rem;
+            padding: 0 1rem;
+            font-size: $font_12_size;
+        }
+    }
+}
