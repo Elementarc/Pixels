@@ -49,6 +49,10 @@ body {
     .app_container{
         grid-template-columns: unset;
         grid-template-rows: auto 1fr;
-
+        .app_content_container{
+            .app_content_blur{
+                display: none;
+            }
+        }
     }
 }

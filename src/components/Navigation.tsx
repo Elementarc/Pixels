@@ -179,7 +179,7 @@ function Navigation_mobile(): ReactElement {
     
             }
         }
-        animateNavMobile(navState)
+        animateNavMobile(nav.navState)
 
     }, [nav.navState, navContainerAnimation]);
 
