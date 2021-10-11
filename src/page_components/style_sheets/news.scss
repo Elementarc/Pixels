@@ -4,27 +4,9 @@
     grid-row: 1/1;
     grid-column: 1/1;
     height: auto;
-
-    .news_nav_container{
-        position: sticky;
-        z-index: 2;
-        top: 3rem;
-        width: 100%;
-        display: flex;
-        color: white;
-        justify-content: center;
-        .news_nav_content_container{
-            background: $color_gradiant_main;
-            width: 40%;
-            h1{
-                text-align: center;
-                padding: .7rem 2rem;
-                font-weight: unset;
-                font-family: $font_alatsi;
-                font-size: $font_24_size;
-            }
-        }
-    }
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     .news_header_container{
         position: relative;
         .background_container{
@@ -98,7 +80,7 @@
         column-gap: 5rem;
         row-gap: 5rem;
         grid-template-rows: auto;
-        .patch_container{
+        .patch_template_container{
             &:hover{
                 cursor: pointer;
                 box-shadow: 1px 3px 6px 0px $shadow_25;
@@ -159,7 +141,7 @@
             margin: 8rem 0rem;
             row-gap: 2rem;
             grid-template-columns: 1fr;
-            .patch_container{
+            .patch_template_container{
                 .patch_preview{
                     height: 230px;
                 }

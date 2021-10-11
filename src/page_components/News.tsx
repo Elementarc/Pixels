@@ -5,31 +5,29 @@ import Image from "../assets/images/arclipse.jpg"
 import "./style_sheets/news.scss"
 import { useHistory, useLocation, useParams, Route, Switch} from 'react-router';
 import PatchImage from "../assets/images/patch1.jpg"
+//Components
+import PatchV1 from "../components/PatchV1"
 
-
-export default function News(): ReactElement {
+export default function News_renderer(): ReactElement {
 	
 	return(
 		<Switch>
 			<Route exact path='/news'>
-				<News_welcome_screen/>
+				<News_home/>
+			</Route>
+
+			<Route strict path="/news/:patch">
+				<PatchV1/>
 			</Route>
 
 		</Switch>
 	)
 }
 
-function News_welcome_screen(): ReactElement {
+function News_home(): ReactElement {
 
 	return (
 		<motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.12}}} exit={{opacity: 0, transition: {duration: 0.12}}} className="news_container">
-			<div className="news_nav_container">
-				<span />
-				<div className="news_nav_content_container" >
-					<h1>News</h1>
-				</div>
-				<span />
-			</div>
 
 			<div className="news_header_container">
 				<div className="background_container">
@@ -45,24 +43,27 @@ function News_welcome_screen(): ReactElement {
 			</div>
 
 			<div className="news_content_container">
-				<PatchTemplate date="06/10/2021" version="1.0" type="Application Launch" preview={PatchImage}/>
-				<PatchTemplate date="06/10/2021" version="1.0" type="Application Launch" preview={PatchImage}/>
+				<Patch_template date="06/10/2021" version="1" type="Application Launch" preview={PatchImage}/>
+				<Patch_template date="06/10/2021" version="1" type="Application Launch" preview={PatchImage}/>
 			</div>
+
 		</motion.div>
 	);
 }
-function PatchTemplate(props: any): ReactElement{
+
+
+function Patch_template(props: any): ReactElement{
 	const history = useHistory()
 
 	//Function
 	function goToPatch(link: string) {
 		if(history.location.pathname.includes(`${link}`) === false) {
-			history.push(`${history.location.pathname.toLowerCase()}/patch${props.version}`)
+			history.push(`${history.location.pathname.toLowerCase()}/patch_V${props.version}`)
 		}
 	}
 	return(
 		
-		<motion.div onClick={() => goToPatch(props.link)} className="patch_container">
+		<motion.div onClick={() => goToPatch(props.link)} className="patch_template_container">
 			<img src={props.preview} alt="patchImage" className="patch_preview" />
 			<div className="patch_information">
 				<h2>{props.type}</h2>

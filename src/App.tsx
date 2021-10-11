@@ -16,7 +16,6 @@ export const isDesktopContext: any = React.createContext(true)
 
 //App Component
 export default function App_main(): ReactElement {
-    
     const location = useLocation()
     //Setting IsDesktop to tell other Components if App is mobileDevice or DesktopDevice
     const [isDesktop, setIsDesktop] = useState(() => {
@@ -58,7 +57,7 @@ export default function App_main(): ReactElement {
 
                 <div className="app_content_container" id="app_content_container">
 
-                    <div className="app_content_blur" id="app_content_blur"/>
+                    <div onClick={() => {setNavState(false)}} className="app_content_blur" id="app_content_blur"/>
 
                     <AnimatePresence exitBeforeEnter onExitComplete={() => {window.scrollTo(0,0)}}>
                         <Switch location={location} key={location.pathname}>
