@@ -1,40 +1,20 @@
-import React, { ReactElement } from 'react';
-import { AnimatePresence, motion } from "framer-motion"
+import React, { ReactElement, useEffect} from 'react';
+import { motion } from "framer-motion"
 import Image from "../assets/images/arclipse.jpg"
 import "./style_sheets/news.scss"
-import { useHistory, Route, Switch} from 'react-router';
+import { useHistory} from 'react-router';
 import PatchImage from "../assets/images/patch1.jpg"
-//Components
-import Patch_renderer from "../components/Patch_renderer"
-
-//Function that scroll Body to top
-function scrollToTop() {
-	window.scrollTo(0,0)
-}
-
-//Component That renders News_home if no Patch param is available in the url
-export default function News_renderer(): ReactElement {
-	scrollToTop()
-
-	return(
-		<AnimatePresence exitBeforeEnter onExitComplete={() => {console.log("test")}}>
-			<Switch>
-				<Route exact path='/news'>
-					<News_home/>
-				</Route>
-
-				<Route exact path="/news/:patch">
-					<Patch_renderer/>
-				</Route>
-
-			</Switch>
-		</AnimatePresence>
-	)
-}
+import Footer from '../components/Footer';
 
 //Component that renders the Default screen to News Page
-function News_home(): ReactElement {
-	scrollToTop()
+export default  function News_home(): ReactElement {
+	//Scrolling to top when page loaded
+    useEffect(() => {
+		
+        return(() => {
+            window.scrollTo(0,0)
+        })
+	},[])
 	return (
 		<motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.12}}} exit={{opacity: 0, transition: {duration: 0.12}}} className="news_container">
 
@@ -52,9 +32,10 @@ function News_home(): ReactElement {
 			</div>
 
 			<div className="news_content_container">
-				<Patch_template date="06/10/2021" version="1" type="Application Launch" preview={PatchImage}/>
+				<Patch_template date="06/10/2021" patch="1" type="Application Launch" preview={PatchImage}/>
 			</div>
 
+			<Footer/>
 		</motion.div>
 	);
 }
@@ -64,18 +45,18 @@ function Patch_template(props: any): ReactElement{
 	const history = useHistory()
 
 	//Function
-	function goToPatch(link: string) {
-		if(history.location.pathname.includes(`${link}`) === false) {
-			history.push(`${history.location.pathname.toLowerCase()}/patchnote_${props.version}`)
+	function goToPatch() {
+		if(history.location.pathname.toLowerCase().includes(`/patchnote_${props.patch}`) === false) {
+			history.push(`${history.location.pathname.toLowerCase()}/patchnote_${props.patch}`)
 		}
 	}
 	return(
 		
-		<motion.div onClick={() => goToPatch(props.link)} className="patch_template_container">
+		<motion.div onClick={goToPatch} className="patch_template_container">
 			<img src={props.preview} alt="patchImage" className="patch_preview" />
 			<div className="patch_information">
 				<h2>{props.type}</h2>
-				<h1>Patchnotes {props.version}</h1>
+				<h1>Patchnotes {props.patch}</h1>
 				<p>2 Weeks ago</p>
 			</div>
 		</motion.div>

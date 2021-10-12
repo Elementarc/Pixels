@@ -3,9 +3,9 @@ import { Switch , Route, useLocation, Redirect} from 'react-router-dom';
 import {  AnimatePresence } from 'framer-motion';
 //React Components
 import Navigation from "./components/Navigation"
-import Home from "./page_components/Home"
 import News from "./page_components/News"
-import Footer from './components/Footer';
+import Home from "./page_components/Home"
+import Patch from "./page_components/Patch"
 //StyleSheets
 import "./style_sheets/app.scss"
 //Types
@@ -13,6 +13,8 @@ import {AppContext} from "./types"
 //Creating Context
 export const appContext: any = React.createContext(null)
 export const isDesktopContext: any = React.createContext(true)
+
+history.scrollRestoration = "manual"
 
 //App Component
 export default function App_main(): ReactElement {
@@ -31,7 +33,6 @@ export default function App_main(): ReactElement {
         }
         
     }
-
     //Checks if Application IsDesktop or not
     useEffect(() => {
         function resize(){
@@ -50,19 +51,6 @@ export default function App_main(): ReactElement {
         })
     }, []);
 
-    //Function that tells Switch Component when to rerender
-    function pageReload() {
-        if(location.pathname.toLowerCase().includes("/home") === true) {
-            return 0
-        } else if (location.pathname.toLowerCase().includes("/news") === true) {
-            return 1
-        } else if (location.pathname.toLowerCase().includes("/packs") === true) {
-            return 2
-        } else if (location.pathname.toLowerCase().includes("/search") === true) {
-            return 3
-        }
-    }
-
     return (
         <appContext.Provider value={appContextObj}>
             <div className="app_container">
@@ -72,24 +60,33 @@ export default function App_main(): ReactElement {
 
                     <div onClick={() => {setNavState(false)}} className="app_content_blur" id="app_content_blur"/>
 
-                    <AnimatePresence exitBeforeEnter onExitComplete={() => {window.scrollTo(0,0)}}>
-                        <Switch location={location} key={pageReload()}>
+                    <AnimatePresence exitBeforeEnter>
+                        <Switch location={location} key={location.pathname}>
                             
-                            <Route strict exact path="/home">
-                                <Home />
+                            <Route exact path="/home">
+                                <Home/>
                             </Route>
-
-                            <Route strict path="/news">
+                            
+                            <Route exact path="/news">
                                 <News/>
                             </Route>
 
+                            
+                            <Route exact path="/news/:patch">
+                                <Patch/>
+                            </Route> 
+                                
+
+                                
+
+
+                    
+
                             <Route exact path="/">
-                                <Redirect to="/home"></Redirect>
+                                <Redirect to="/home" />
                             </Route>
                         </Switch>
                     </AnimatePresence>
-
-                    <Footer/>
 
                 </div>
 

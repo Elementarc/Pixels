@@ -1,35 +1,35 @@
-import React, { ReactElement } from 'react';
-import "../components/style_sheets/patch_style_sheets/patchv1.scss"
+import React, { ReactElement, useEffect} from 'react';
 import { motion } from "framer-motion"
-
 import { useHistory, useParams } from 'react-router';
+//SCSS
+import "./style_sheets/patch.scss"
+import patch_v1 from "../assets/images/patch1.jpg"
+import Footer from '../components/Footer';
 
-export default function Patch_renderer(): ReactElement {
-    const params: any = useParams()
-    const patch = params.patch.toLowerCase()
-
-    //Gets Parameter to return correct Patch Version Component. Default return is a 404 Component not Found
-    switch(patch) {
-        case "patchnote_1": {
-            return (
-                <Patchnote_1/>
-            )
-        }
-        default: {
-            return (
-                <div>
-
-                </div>
-            )
-        }
+export default function Patch_main(): ReactElement {
+    const param: any = useParams()
+    const patch = param.patch
+    //Scrolling to top when page loaded
+    useEffect(() => {
+		
+        return(() => {
+            window.scrollTo(0,0)
+        })
+	},[])
+    if(patch === "patchnote_1") {
+        return (
+            <Patchnote_1 />
+        )
+    } else {
+        return(
+            <div></div>
+        )
     }
 }
 
-import patch_v1 from "../assets/images/patch1.jpg"
 
 //Component that renders Patch
 function Patchnote_1(): ReactElement {
-    
     const history = useHistory()
 
     return (
@@ -60,6 +60,8 @@ function Patchnote_1(): ReactElement {
 
                 <Forward_container/>
             </div>
+
+            <Footer/>
         </motion.div>
     );
 }
