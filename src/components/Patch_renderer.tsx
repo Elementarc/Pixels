@@ -1,23 +1,47 @@
 import React, { ReactElement } from 'react';
 import "../components/style_sheets/patch_style_sheets/patchv1.scss"
+import { motion } from "framer-motion"
 
-import Patch1 from "../assets/images/patch1.jpg"
-import { useHistory } from 'react-router';
-export default function Patch_V1(): ReactElement {
+import { useHistory, useParams } from 'react-router';
+
+export default function Patch_renderer(): ReactElement {
+    const params: any = useParams()
+    const patch = params.patch.toLowerCase()
+
+    //Gets Parameter to return correct Patch Version Component. Default return is a 404 Component not Found
+    switch(patch) {
+        case "patchnote_1": {
+            return (
+                <Patchnote_1/>
+            )
+        }
+        default: {
+            return (
+                <div>
+
+                </div>
+            )
+        }
+    }
+}
+
+import patch_v1 from "../assets/images/patch1.jpg"
+
+//Component that renders Patch
+function Patchnote_1(): ReactElement {
+    
     const history = useHistory()
-    return (
-        <div className="patch_container">
 
+    return (
+        <motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.12}}} exit={{opacity: 0, transition: {duration: 0.12}}} className="patch_container">
             <div className="patch_preview_container">
-                <img src={Patch1} alt="" />
+                <img src={patch_v1} alt="" />
                 <div className="patch_preview_blur"></div>
             </div>
-
             <div className="patch_content_container">
-                
                 <div className="patch_main_content_container">
                     <div className="patch_main_content">
-                        <h2>Application changes</h2>
+                        <h2>Application Launch</h2>
                         <h1>Patchnotes 1 September, 2021</h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Placerat fermentum tellus tellus sed justo elementum nunc, vel. Lacus, ipsum eleifend eget erat faucibus lectus. Aenean ultricies ullamcorper convallis lorem. Aliquam elit sociis nec tellus nibh. Elit turpis tempus placerat mi. Mollis lectus sed risus nisi, et. Dignissim urna, vitae sed laoreet ut at neque netus.</p>
                         <br />
@@ -25,7 +49,7 @@ export default function Patch_V1(): ReactElement {
                         <br />
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Placerat fermentum tellus tellus sed justo elementum nunc, vel. Lacus, ipsum eleifend eget erat faucibus lectus. Aenean ultricies ullamcorper convallis lorem. Aliquam elit sociis nec tellus nibh. Elit turpis tempus placerat mi. Mollis lectus sed risus nisi, et. Dignissim urna, vitae sed laoreet ut at neque netus.  Mollis lectus sed risus nisi,  Mollis lectus sed risus nisi.</p>
 
-                        <img src={Patch1} alt="" />
+                        <img src={patch_v1} alt="" />
                         <h1 style={{marginTop: "2rem"}}>PixelPalast</h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Placerat fermentum tellus tellus sed justo elementum nunc, vel. Lacus, ipsum eleifend eget erat faucibus lectus. Aenean ultricies ullamcorper convallis lorem. Aliquam elit sociis nec tellus nibh. Elit turpis tempus placerat mi. Mollis lectus sed risus nisi, et. Dignissim urna, vitae sed laoreet ut at neque netus.</p>
                         <br />
@@ -34,11 +58,45 @@ export default function Patch_V1(): ReactElement {
                     </div>
                 </div>
 
-                <div className="patch_forward_container">
-
-                </div>
+                <Forward_container/>
             </div>
-
-        </div>
+        </motion.div>
     );
 }
+
+//Container That Renders all Forward_items
+function Forward_container(): ReactElement {
+  return (
+    <div className="patch_forward_container">
+
+        <Forward_item img={patch_v1} header="Plans for the future" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+        <Forward_item img={patch_v1} header="Plans for the future" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+
+    </div>
+  );
+}
+//Creating a Forward item. Used by Forward_container
+function Forward_item(props: any) {
+  return (
+
+    <div className="patch_forward_content_container">
+
+        <div className="patch_forward_1_container">
+
+            <div className="patch_forward_img_container">
+                <img src={props.img} alt="" />
+            </div>
+            
+            <div className="patch_forward_info_content">
+                <h2>{props.header}</h2>
+                <p>{props.description}</p>
+            </div>
+            
+        </div>
+        <span />
+
+    </div>
+
+  );
+}
+

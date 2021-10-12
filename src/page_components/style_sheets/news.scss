@@ -123,9 +123,11 @@
                 padding-top: 8.5rem;
                 h2{
                     font-size: $font_16_size;
+                    font-weight: 500;
                 }
                 h1 {
                     font-size: $font_32_size;
+                    font-weight: 500;
                 }
                 p{
                     width: 100%;
@@ -137,6 +139,7 @@
                 }
             }
         }
+
         .news_content_container{
             margin: 8rem 0rem;
             row-gap: 2rem;
@@ -148,10 +151,12 @@
                 .patch_information{
                     h2{
                         font-size: $font_16_size;
+                        font-weight: 500;
                     }
                     h1{
                         font-size: $font_32_size;
                         margin-top: unset;
+                        font-weight: 500;
                     }
                     p{
                         font-size: $font_14_size;

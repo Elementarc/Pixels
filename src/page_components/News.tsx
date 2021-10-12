@@ -1,31 +1,40 @@
 import React, { ReactElement } from 'react';
-import {motion} from "framer-motion"
-/*eslint-disable */
+import { AnimatePresence, motion } from "framer-motion"
 import Image from "../assets/images/arclipse.jpg"
 import "./style_sheets/news.scss"
-import { useHistory, useLocation, useParams, Route, Switch} from 'react-router';
+import { useHistory, Route, Switch} from 'react-router';
 import PatchImage from "../assets/images/patch1.jpg"
 //Components
-import PatchV1 from "../components/PatchV1"
+import Patch_renderer from "../components/Patch_renderer"
 
+//Function that scroll Body to top
+function scrollToTop() {
+	window.scrollTo(0,0)
+}
+
+//Component That renders News_home if no Patch param is available in the url
 export default function News_renderer(): ReactElement {
-	
+	scrollToTop()
+
 	return(
-		<Switch>
-			<Route exact path='/news'>
-				<News_home/>
-			</Route>
+		<AnimatePresence exitBeforeEnter onExitComplete={() => {console.log("test")}}>
+			<Switch>
+				<Route exact path='/news'>
+					<News_home/>
+				</Route>
 
-			<Route strict path="/news/:patch">
-				<PatchV1/>
-			</Route>
+				<Route exact path="/news/:patch">
+					<Patch_renderer/>
+				</Route>
 
-		</Switch>
+			</Switch>
+		</AnimatePresence>
 	)
 }
 
+//Component that renders the Default screen to News Page
 function News_home(): ReactElement {
-
+	scrollToTop()
 	return (
 		<motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.12}}} exit={{opacity: 0, transition: {duration: 0.12}}} className="news_container">
 
@@ -44,21 +53,20 @@ function News_home(): ReactElement {
 
 			<div className="news_content_container">
 				<Patch_template date="06/10/2021" version="1" type="Application Launch" preview={PatchImage}/>
-				<Patch_template date="06/10/2021" version="1" type="Application Launch" preview={PatchImage}/>
 			</div>
 
 		</motion.div>
 	);
 }
 
-
+//Component to create a Patch template
 function Patch_template(props: any): ReactElement{
 	const history = useHistory()
 
 	//Function
 	function goToPatch(link: string) {
 		if(history.location.pathname.includes(`${link}`) === false) {
-			history.push(`${history.location.pathname.toLowerCase()}/patch_V${props.version}`)
+			history.push(`${history.location.pathname.toLowerCase()}/patchnote_${props.version}`)
 		}
 	}
 	return(

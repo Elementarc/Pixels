@@ -22,7 +22,7 @@ export default function App_main(): ReactElement {
         return window.innerWidth >= 1024 ? true: false
     });
     const [NavState, setNavState] = useState(false);
-    
+    //Context that gets Send to all childs
     const appContextObj: AppContext = {
         isDesktop: isDesktop,
         nav:  {
@@ -50,6 +50,19 @@ export default function App_main(): ReactElement {
         })
     }, []);
 
+    //Function that tells Switch Component when to rerender
+    function pageReload() {
+        if(location.pathname.toLowerCase().includes("/home") === true) {
+            return 0
+        } else if (location.pathname.toLowerCase().includes("/news") === true) {
+            return 1
+        } else if (location.pathname.toLowerCase().includes("/packs") === true) {
+            return 2
+        } else if (location.pathname.toLowerCase().includes("/search") === true) {
+            return 3
+        }
+    }
+
     return (
         <appContext.Provider value={appContextObj}>
             <div className="app_container">
@@ -60,10 +73,10 @@ export default function App_main(): ReactElement {
                     <div onClick={() => {setNavState(false)}} className="app_content_blur" id="app_content_blur"/>
 
                     <AnimatePresence exitBeforeEnter onExitComplete={() => {window.scrollTo(0,0)}}>
-                        <Switch location={location} key={location.pathname}>
+                        <Switch location={location} key={pageReload()}>
                             
                             <Route strict exact path="/home">
-                                <Home key="Home"/>
+                                <Home />
                             </Route>
 
                             <Route strict path="/news">
