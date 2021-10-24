@@ -36,7 +36,7 @@ function Patchnote_1(): ReactElement {
     const history = useHistory()
 
     return (
-        <motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.12}}} exit={{opacity: 0, transition: {duration: 0.12}}} className="patch_container">
+        <motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.15}}} exit={{opacity: 0, transition: {duration: 0.15}}} className="patch_container">
             <div className="patch_preview_container">
                 <img src={patch_v1} alt="" />
                 <div className="patch_preview_blur"></div>

@@ -10,7 +10,7 @@ const Landing_page = ():ReactElement => {
         })
 	},[])
     return (
-        <motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.12}}} exit={{opacity: 0, transition: {duration: 0.12}}}  className="home_container">
+        <motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.15}}} exit={{opacity: 0, transition: {duration: 0.15}}}  className="home_container">
             <div className="title_screen_container"></div>
 
             <Add_Section_Row sectionName = "Uploads"/>

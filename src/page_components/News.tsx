@@ -19,7 +19,7 @@ export default  function News_home(): ReactElement {
         })
 	},[])
 	return (
-		<motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.12}}} exit={{opacity: 0, transition: {duration: 0.12}}} className="news_container">
+		<motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.15}}} exit={{opacity: 0, transition: {duration: 0.15}}} className="news_container">
 
 			<div className="news_header_container">
 				<div className="background_container">

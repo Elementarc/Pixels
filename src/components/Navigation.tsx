@@ -44,13 +44,12 @@ function Navigation_desktop(): ReactElement {
     const navContainerAnimation = useAnimation()
     //Toggle Animation for navigation When NavState changes For mobile & Desktop
     useEffect(() => {
-        const NavContent = document.getElementById("nav_content") as HTMLDivElement
+        const getNavContentContainer = document.getElementById("nav_content") as HTMLDivElement
         //Animations For Navigation(DESKTOP)
         function animateNavDesktop(navState: boolean): void{
-            NavContent.style.overflowX = "hidden"
-            NavContent.style.overflowY = "scroll"
-            NavContent.scrollTop = 0
-            
+            getNavContentContainer.style.overflowX = "hidden"
+            getNavContentContainer.style.overflowY = "scroll"
+            getNavContentContainer.scrollTop = 0
             const getContentBlur = document.getElementById("app_content_blur") as HTMLDivElement
             
             //Scrolling To Top Of Navigation When Switching to between Desktop & Mobile Version
