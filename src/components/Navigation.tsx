@@ -1,5 +1,5 @@
 /*eslint-disable */
-import React, {ReactElement, useContext, useEffect} from "react"
+import React, {ReactElement, useContext, useEffect, useCallback} from "react"
 import {motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useLocation, useHistory } from 'react-router-dom';
 import {NavItem} from "../types"
@@ -21,6 +21,8 @@ import {AppContext} from "../types"
 export default function Navigation(): ReactElement {
     const appVars: AppContext = useContext(appContext)
     const isDesktop = appVars.isDesktop
+
+    
 
     return(
         <>

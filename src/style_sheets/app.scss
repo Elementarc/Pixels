@@ -17,22 +17,20 @@ body {
 
 .app_container{
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto;
     background-color: $color_dark_blue;
     margin: 0 auto;
     max-width: 2560px;
-    height: auto;
-
-    
 
     .app_content_container{
         position: relative;
         display: grid;
+        align-self: start;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
         width: 100%;
         height: auto;
-
         .app_content_blur{
             position: absolute;
             z-index: 100;

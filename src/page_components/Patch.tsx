@@ -1,10 +1,13 @@
 import React, { ReactElement, useEffect} from 'react';
 import { motion } from "framer-motion"
 import { useHistory, useParams } from 'react-router';
+//COMPONENTS
+import Footer from '../components/Footer';
+//IMAGES
+import patch_v1 from "../assets/images/patch1.jpg"
 //SCSS
 import "./style_sheets/patch.scss"
-import patch_v1 from "../assets/images/patch1.jpg"
-import Footer from '../components/Footer';
+
 
 export default function Patch_main(): ReactElement {
     const param: any = useParams()

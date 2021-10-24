@@ -1,7 +1,10 @@
 import React, { ReactElement } from 'react';
+//SVG COMPONENTS (ICONS)
 import TwitterLogo from "../assets/logos/twitter.svg"
+//SCSS
 import "./style_sheets/footer.scss"
-/*eslint-disable */
+
+
 export default function Footer(): ReactElement {
   return (
     <footer className="footer_container">

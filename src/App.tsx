@@ -14,7 +14,6 @@ import {AppContext} from "./types"
 export const appContext: any = React.createContext(null)
 export const isDesktopContext: any = React.createContext(true)
 
-history.scrollRestoration = "manual"
 
 //App Component
 export default function App_main(): ReactElement {
@@ -35,7 +34,7 @@ export default function App_main(): ReactElement {
     }
     //Checks if Application IsDesktop or not
     useEffect(() => {
-        function resize(){
+        function checkApplicationWidth(){
             const deviceWidth = window.innerWidth
 
             if(deviceWidth > 1024){
@@ -45,11 +44,34 @@ export default function App_main(): ReactElement {
             }
         }
 
-        window.addEventListener("resize", resize)
+        window.addEventListener("resize", checkApplicationWidth)
         return(() => {
-            window.removeEventListener("resize", resize)
+            window.removeEventListener("resize", checkApplicationWidth)
         })
     }, []);
+
+
+    //Observes AppContentHeight to set maxHeight of NavContent. So app Does not Stretch all the way down
+    useEffect(() => {
+        const getAppContentContainer = document.getElementById("app_content_container") as HTMLDivElement
+        const getNavContentContainer = document.getElementById("nav_content") as HTMLDivElement
+
+        //Creating Observer for AppContentContainer
+        const resizeObserver = new ResizeObserver((entries) => {
+
+            for(const entry of entries){
+                if(entry.contentRect.height < 600) {
+                    //getNavContentContainer.style.maxHeight = `${getAppContentContainer.offsetHeight}px`
+                } else {
+                    getNavContentContainer.style.maxHeight = `${getAppContentContainer.offsetHeight}px`
+                }
+            }
+            
+            
+        })
+
+        resizeObserver.observe(getAppContentContainer)
+    }, [])
 
     return (
         <appContext.Provider value={appContextObj}>

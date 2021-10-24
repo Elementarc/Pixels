@@ -1,12 +1,15 @@
 import React, { ReactElement, useEffect} from 'react';
 import { motion } from "framer-motion"
 import Image from "../assets/images/arclipse.jpg"
-import "./style_sheets/news.scss"
 import { useHistory} from 'react-router';
-import PatchImage from "../assets/images/patch1.jpg"
+//COMPONENTS
 import Footer from '../components/Footer';
+//IMAGES
+import PatchImage from "../assets/images/patch1.jpg"
+//SCSS
+import "./style_sheets/news.scss"
 
-//Component that renders the Default screen to News Page
+//News Component
 export default  function News_home(): ReactElement {
 	//Scrolling to top when page loaded
     useEffect(() => {
@@ -25,14 +28,14 @@ export default  function News_home(): ReactElement {
 				</div>
 				<div className="header_content_container">
 					<h2>Recent Updates</h2>
-					<h1>Everything New!</h1>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et lectus eu tincidunt faucibus. Vel venenatis eget euismod.</p>
+					<h1>Everything New About PixelPalast</h1>
+					<p>We will release occasional updates for PixelPalast. If you want to stay tuned you should come here and visit sometimes.</p>
 					<span />
 				</div>
 			</div>
 
 			<div className="news_content_container">
-				<Patch_template date="06/10/2021" patch="1" type="Application Launch" preview={PatchImage}/>
+				<Patch_template date="14/10/2021" patch="1" name="Patchnote 1.0.0" type="Application Launch" preview={PatchImage}/>
 			</div>
 
 			<Footer/>
@@ -56,7 +59,7 @@ function Patch_template(props: any): ReactElement{
 			<img src={props.preview} alt="patchImage" className="patch_preview" />
 			<div className="patch_information">
 				<h2>{props.type}</h2>
-				<h1>Patchnotes {props.patch}</h1>
+				<h1>{props.name}</h1>
 				<p>2 Weeks ago</p>
 			</div>
 		</motion.div>
