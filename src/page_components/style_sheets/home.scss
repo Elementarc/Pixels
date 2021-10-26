@@ -8,7 +8,6 @@
     .news_section_container {
         position: relative;
         display: flex;
-        justify-content: center;
         align-items: center;
         width: 100%;
         background: url("../../assets/images/fantasy_forest.jpg");
@@ -17,12 +16,16 @@
         height: 600px;
         overflow: hidden;
         margin-bottom: .25rem;
-        direction: rtl;
+        
         .news_section_content{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
             z-index: 1;
             width: 100%;
             padding-right: 12rem;
             font-family: $font_alatsi;
+            text-align: end;
             h2 {
                 font-size: $font_18_size;
                 color: $color_main_bright;
@@ -48,10 +51,12 @@
                 font-weight: unset;
                 font-size: $font_18_size;
                 font-family: $font_alatsi;
+                
                 background-color: unset;
                 border-style: none;
                 color: $color_main;
                 text-decoration: underline;
+                transition: 0.1s ease-in-out;
                 &:hover{
                     cursor: pointer;
                     color: $color_main_bright;
@@ -112,8 +117,14 @@
                 font-size: $font_18_size;
                 font-family: $font_alatsi;
                 border-style: none;
-                padding: .6rem 2rem;
+                padding: .70rem 2.3rem;
                 background-color: $color_main;
+                transition: 0.1s ease-in-out;
+                color: $color_dark_blue;
+                &:hover{
+                    cursor: pointer;
+                    background-color: $color_main_bright;
+                }
             }
         }
         .signup_section_background_blur{
