@@ -2,7 +2,7 @@
 import React, {ReactElement, useContext, useEffect, useCallback} from "react"
 import {motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useLocation, useHistory } from 'react-router-dom';
-import {NavItem} from "../types"
+import {NavContext, NavItem} from "../types"
 //SVG Components (ICONS)
 import NavIcon from "../assets/icons/NavIcon.svg"
 import CloseIcon from "../assets/icons/CloseIcon.svg"
@@ -39,7 +39,7 @@ export default function Navigation(): ReactElement {
 //Navigation Component for Desktop
 function Navigation_desktop(): ReactElement {
     const App: AppContext = useContext(appContext)
-    const nav = App.nav
+    const Nav: NavContext = App.nav
 
     const navContainerAnimation = useAnimation()
     //Toggle Animation for navigation When NavState changes For mobile & Desktop
@@ -74,13 +74,13 @@ function Navigation_desktop(): ReactElement {
             }
         }
 
-        animateNavDesktop(nav.navState)
+        animateNavDesktop(Nav.navState)
         
-    }, [nav.navState, navContainerAnimation]);
+    }, [Nav.navState, navContainerAnimation]);
 
     //Setting NavHeight to device Window inner heigth
     useEffect(() => {
-        nav.setNavState(false)
+        Nav.setNavState(false)
         const NavContent = document.getElementById("nav_content") as HTMLDivElement
 
         function resize() {
@@ -95,30 +95,65 @@ function Navigation_desktop(): ReactElement {
             window.removeEventListener("resize", resize)
         })
 
-    }, [nav.setNavState])
+    }, [Nav.setNavState])
 
+    //Observes AppContentHeight to set maxHeight of Navigation. So app Does not Stretch all the way down to screenHeight
+    useEffect(() => {
+        const getAppContentContainer = document.getElementById("app_content_container") as HTMLDivElement
+        const getNavContentContainer = document.getElementById("nav_content") as HTMLDivElement
+        
+        //Creating Observer for AppContentContainer and setting maxHeight for navContainer. maxHeight will always be appContent Height.
+        const resizeObserver = new ResizeObserver((entries) => {
+            for(const entry of entries){
+                if(entry.contentRect.height < 1080) {
+                    getNavContentContainer.style.maxHeight = `1080px`
+                } else {
+                    getNavContentContainer.style.maxHeight = `${entry.contentRect.height}px`
+                }
+            }
+            
+        })
+
+
+        if(App.isDesktop === true) {
+            resizeObserver.observe(getAppContentContainer)
+        } else {
+            resizeObserver.unobserve(getAppContentContainer)
+        }
+        
+        function setNavMaxHeight() {
+            
+            getNavContentContainer.style.maxHeight = `${getAppContentContainer.offsetHeight}px`
+        }
+        window.addEventListener("resize", setNavMaxHeight)
+
+        return(() => {
+            resizeObserver.unobserve(getAppContentContainer)
+            window.removeEventListener("resize", setNavMaxHeight)
+        })
+    }, [App.isDesktop])
     return (
-        <motion.div animate={navContainerAnimation} className="nav_container_desktop" id="nav_container">
+        <motion.nav animate={navContainerAnimation} className="nav_container_desktop" id="nav_container">
 
             <motion.div className="nav_content" id="nav_content">
 
                 <motion.div className="nav_button_container" id="nav_button_container">
                     <AnimatePresence exitBeforeEnter>
-                        {nav.navState === true &&
+                        {Nav.navState === true &&
                             <motion.div key="menu" initial={{scale: 0.9}} animate={{scale: 1, transition: {duration: 0.18, type: "spring"}}} exit={{scale: 0, transition: {duration: 0.1}}}>
-                                <CloseIcon onClick={() => nav.setNavState(!nav.navState)} className="nav_svg"/>
+                                <CloseIcon onClick={() => Nav.setNavState(!Nav.navState)} className="nav_svg"/>
                             </motion.div>
                         } 
-                        {nav.navState === false &&
+                        {Nav.navState === false &&
                             <motion.div key="close" initial={{scale: 0.9}} animate={{scale: 1, transition: {duration: 0.18, type: "spring"}}} exit={{scale: 0, transition: {duration: 0.1}}}>
-                                <NavIcon onClick={() => nav.setNavState(!nav.navState)} className="nav_svg"/>
+                                <NavIcon onClick={() => Nav.setNavState(!Nav.navState)} className="nav_svg"/>
                             </motion.div>
                         }
                     </AnimatePresence>
                 </motion.div>
 
                 <div className="nav_items_container">
-                    <div onClick={() => {nav.setNavState(false)}}>
+                    <div onClick={() => {Nav.setNavState(false)}}>
                         <ul>
                             <Nav_item label="Home" icon={HomeIcon} link="/home"/>
                             <Nav_item label="News" icon={NewsIcon} link="/news" />
@@ -128,7 +163,7 @@ function Navigation_desktop(): ReactElement {
                     </div>
 
                     <div className="nav_sign_in" id="nav_button_container">
-                        <div onClick={() => {nav.setNavState(false)}}>
+                        <div onClick={() => {Nav.setNavState(false)}}>
                             <ul>
                                 <Nav_item label="Sign In" icon={SignInIcon} link="/login"/>
                             </ul>
@@ -138,7 +173,7 @@ function Navigation_desktop(): ReactElement {
 
             </motion.div>
 
-        </motion.div>
+        </motion.nav>
     )
 }
 //Navigation Component for Mobile

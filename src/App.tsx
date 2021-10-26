@@ -50,41 +50,7 @@ export default function App_main(): ReactElement {
         })
     }, []);
 
-    //Observes AppContentHeight to set maxHeight of NavContent. So app Does not Stretch all the way down
-    useEffect(() => {
-        const getAppContentContainer = document.getElementById("app_content_container") as HTMLDivElement
-        const getNavContentContainer = document.getElementById("nav_content") as HTMLDivElement
-        
-        //Creating Observer for AppContentContainer and setting maxHeight for navContainer. maxHeight will always be appContent Height.
-        const resizeObserver = new ResizeObserver((entries) => {
-            for(const entry of entries){
-                if(entry.contentRect.height < 1080) {
-                    //getNavContentContainer.style.maxHeight = `1080px`
-                } else {
-                    getNavContentContainer.style.maxHeight = `${entry.contentRect.height}px`
-                }
-            }
-            
-        })
-
-
-        if(isDesktop === true) {
-            resizeObserver.observe(getAppContentContainer)
-        } else {
-            resizeObserver.unobserve(getAppContentContainer)
-        }
-        
-        function setNavMaxHeight() {
-            
-            getNavContentContainer.style.maxHeight = `${getAppContentContainer.offsetHeight}px`
-        }
-        window.addEventListener("resize", setNavMaxHeight)
-
-        return(() => {
-            resizeObserver.unobserve(getAppContentContainer)
-            window.removeEventListener("resize", setNavMaxHeight)
-        })
-    }, [isDesktop])
+    
 
     return (
         <appContext.Provider value={appContextObj}>

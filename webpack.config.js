@@ -19,18 +19,18 @@ module.exports = {
     },
 
     resolve: {
-        extensions: [".js", ".ts", ".tsx"]
+        extensions: [".js", ".ts", ".tsx", ".scss"]
     },
 
     devtool: "source-map",
 
     plugins: [new HtmlWebpackPlugin({
-            template: "./public/index.html"
+        template: "./public/index.html"
+    }),
+    new ESLintPlugin({
+        extensions: ["js", "jsx", "ts", "tsx"],
         }),
-        new ESLintPlugin({
-            extensions: ["js", "jsx", "ts", "tsx"],
-          }),
-        ],
+    ],
 
     module: {
         
@@ -66,8 +66,8 @@ module.exports = {
             },
 
             {
-                test: /\.(png|jp(e*)g|gif)$/,
-                loader: "file-loader",
+                test: /\.(png|jpg|gif)$/,
+                loader: "url-loader",
                 exclude: "/node_modules/"
             },
             {

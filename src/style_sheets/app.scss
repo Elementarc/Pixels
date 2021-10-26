@@ -19,10 +19,10 @@ body {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto;
-    background-color: $color_dark_blue;
     margin: 0 auto;
     max-width: 2560px;
-
+    background-color: $color_dark_blue;
+    
     .app_content_container{
         position: relative;
         display: grid;
@@ -30,6 +30,7 @@ body {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
         width: 100%;
+        min-height: 1080px;
         height: auto;
         .app_content_blur{
             position: absolute;

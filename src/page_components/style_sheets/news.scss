@@ -81,7 +81,6 @@
         row-gap: 5rem;
         grid-template-rows: auto;
         .patch_template_container{
-            transition: 0.05s ease-in-out;
             &:hover{
                 cursor: pointer;
                 box-shadow: 1px 3px 6px 0px $shadow_25;

@@ -1,39 +1,24 @@
-import React, { ReactElement, useEffect } from 'react';
-import {motion} from "framer-motion"
+import React, {ReactElement} from 'react';
+//React Components
+import Footer from '../components/Footer';
+//StyleSheets
 import "./style_sheets/home.scss"
-const Landing_page = ():ReactElement => {
-    //Scrolling to top when page loaded
-    useEffect(() => {
-		
-        return(() => {
-            window.scrollTo(0,0)
-        })
-	},[])
-    return (
-        <motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.15}}} exit={{opacity: 0, transition: {duration: 0.15}}}  className="home_container">
-            <div className="title_screen_container"></div>
 
-            <Add_Section_Row sectionName = "Uploads"/>
-            <Add_Section_Row sectionName = "Recent"/>
-        </motion.div>
+
+export default function Home_main(): ReactElement {
+
+    return (
+    <div className="home_container">
+        <section className="create_account_section_container">
+            <div className="create_account_section_content">
+                <h2>New Sanctuary</h2>
+                <h1>PixelPalast</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et lectus eu tincidunt faucibus. Vel venenatis eget euismod nulla ut imperdiet tristique amet scelerisque. Sed scelerisque sit faucibus imperdiet. Leo senectus diam volutpat arcu. Consequat libero, scelerisque sed pretium sit semper.</p>
+                <button>Create Account</button>
+            </div>
+        </section>
+        <Footer/>
+    </div>
     );
 }
 
-interface Section_row{
-    sectionName: string
-}
-function Add_Section_Row(props: Section_row):ReactElement{
-    return ( 
-        <div className="section_item">
-            <h1> {`— ${props.sectionName}`} </h1>
-            <div className="section_grid">
-                <div className="grid_item"></div>
-                <div className="grid_item"></div>
-                <div className="grid_item"></div>
-                <div className="grid_item"></div>
-            </div>
-            
-        </div>
-    )
-}
-export default Landing_page;
