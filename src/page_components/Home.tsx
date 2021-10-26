@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import "./style_sheets/home.scss"
 
 
-export default function Home_main(): ReactElement {
+export default function Home(): ReactElement {
 
     
     return (

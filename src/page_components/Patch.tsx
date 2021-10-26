@@ -9,7 +9,7 @@ import patch_v1 from "../assets/images/patch1.jpg"
 import "./style_sheets/patch.scss"
 
 
-export default function Patch_main(): ReactElement {
+export default function Patch(): ReactElement {
     const param: any = useParams()
     const patch = param.patch
     

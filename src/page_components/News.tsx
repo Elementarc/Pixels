@@ -10,7 +10,7 @@ import PatchImage from "../assets/images/patch1.jpg"
 import "./style_sheets/news.scss"
 
 //News Component
-export default  function News_home(): ReactElement {
+export default  function News(): ReactElement {
 	
 	return (
 		<motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.15}}} exit={{opacity: 0, transition: {duration: 0.15}}} className="news_container">

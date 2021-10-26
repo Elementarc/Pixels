@@ -22,15 +22,13 @@ export default function Navigation(): ReactElement {
     const appVars: AppContext = useContext(appContext)
     const isDesktop = appVars.isDesktop
 
-    
-
     return(
         <>
             {isDesktop === true &&
-                <Navigation_desktop key="Navigation_Desktop"/>
+                <Navigation_desktop key="Navigation_desktop"/>
             }
             {isDesktop === false &&
-               <Navigation_mobile key="Navigation_Mobile"/>
+               <Navigation_mobile key="Navigation_mobile"/>
             }
         </>
     )
@@ -56,16 +54,14 @@ function Navigation_desktop(): ReactElement {
             if(navState === false) {
                 navContainerAnimation.start({
                     width: "",
-                    height: ``,
                     transition: {duration: 0.25},
                 })
-                document.body.style.overflow = "unset"
+                document.body.style.overflow = "overlay"
                 getContentBlur.style.pointerEvents = "none"
                 getContentBlur.style.opacity = "0"
             } else {
                 navContainerAnimation.start({
                     width: "380px",
-                    height: ``,
                     transition: {duration: 0.25},
                 })
                 document.body.style.overflow = "hidden"
@@ -133,9 +129,9 @@ function Navigation_desktop(): ReactElement {
         })
     }, [App.isDesktop])
     return (
-        <motion.nav animate={navContainerAnimation} className="nav_container_desktop" id="nav_container">
+        <motion.nav className="nav_container_desktop" id="nav_container">
 
-            <motion.div className="nav_content" id="nav_content">
+            <motion.div animate={navContainerAnimation} className="nav_content" id="nav_content">
 
                 <motion.div className="nav_button_container" id="nav_button_container">
                     <AnimatePresence exitBeforeEnter>
