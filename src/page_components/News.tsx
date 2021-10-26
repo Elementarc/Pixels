@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect} from 'react';
+import React, { ReactElement} from 'react';
 import { motion } from "framer-motion"
 import Image from "../assets/images/arclipse.jpg"
 import { useHistory} from 'react-router';
@@ -11,13 +11,7 @@ import "./style_sheets/news.scss"
 
 //News Component
 export default  function News_home(): ReactElement {
-	//Scrolling to top when page loaded
-    useEffect(() => {
-		
-        return(() => {
-            window.scrollTo(0,0)
-        })
-	},[])
+	
 	return (
 		<motion.div initial={{ opacity: 0}} animate={{opacity: 1, transition: {duration: 0.15}}} exit={{opacity: 0, transition: {duration: 0.15}}} className="news_container">
 

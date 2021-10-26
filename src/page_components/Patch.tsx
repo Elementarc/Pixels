@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect} from 'react';
+import React, { ReactElement} from 'react';
 import { motion } from "framer-motion"
 import { useHistory, useParams } from 'react-router';
 //COMPONENTS
@@ -12,13 +12,7 @@ import "./style_sheets/patch.scss"
 export default function Patch_main(): ReactElement {
     const param: any = useParams()
     const patch = param.patch
-    //Scrolling to top when page loaded
-    useEffect(() => {
-		
-        return(() => {
-            window.scrollTo(0,0)
-        })
-	},[])
+    
     if(patch === "patchnote_1") {
         return (
             <Patchnote_1 />

@@ -9,7 +9,7 @@ body {
     &::-webkit-scrollbar-thumb{
         background-color: $color_bright_blue;
         &:hover{
-            background-color: $color_dark_blue_1;
+            background-color: $color_bright_blue_1;
         }
     }
 }
@@ -18,7 +18,7 @@ body {
 .app_container{
     display: grid;
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: 1fr;
     margin: 0 auto;
     max-width: 2560px;
     background-color: $color_dark_blue;

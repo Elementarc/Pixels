@@ -61,7 +61,7 @@ export default function App_main(): ReactElement {
 
                     <div onClick={() => {setNavState(false)}} className="app_content_blur" id="app_content_blur"/>
 
-                    <AnimatePresence exitBeforeEnter>
+                    <AnimatePresence exitBeforeEnter onExitComplete={() => window.scrollTo(0, 0)}>
                         <Switch location={location} key={location.pathname}>
                             
                             <Route exact path="/home">
@@ -88,9 +88,7 @@ export default function App_main(): ReactElement {
                             </Route>
                         </Switch>
                     </AnimatePresence>
-
                 </div>
-
             </div>
         </appContext.Provider>
     );

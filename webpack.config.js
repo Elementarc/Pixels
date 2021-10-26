@@ -19,7 +19,7 @@ module.exports = {
     },
 
     resolve: {
-        extensions: [".js", ".ts", ".tsx", ".scss"]
+        extensions: [".js", ".ts", ".tsx"]
     },
 
     devtool: "source-map",
@@ -61,13 +61,14 @@ module.exports = {
 
             {
                 test: /\.(ttf|woff|woff2)$/,
+                type: 'asset/resource',
                 loader: "url-loader",
                 exclude: "/node_modules/",
             },
 
             {
                 test: /\.(png|jpg|gif)$/,
-                loader: "url-loader",
+                type: 'asset/resource',
                 exclude: "/node_modules/"
             },
             {

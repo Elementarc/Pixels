@@ -4,9 +4,6 @@
     grid-row: 1/1;
     grid-column: 1/1;
     height: auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
     .news_header_container{
         position: relative;
         .background_container{
@@ -58,6 +55,7 @@
             p{
                 margin-top: 1rem;
                 font-weight: unset;
+                line-height: $font_line_height_text_p;
                 width: 50%;
                 font-size: $font_18_size;
                 font-family: $font_alata;
